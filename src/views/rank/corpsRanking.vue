@@ -5,7 +5,7 @@
       <a-input
         v-model:value="groupName"
         @keyup.enter="getName"
-        placeholder="Bsquared assets"
+        placeholder="Bitlayer assets"
         size="small"
       >
         <template #suffix>

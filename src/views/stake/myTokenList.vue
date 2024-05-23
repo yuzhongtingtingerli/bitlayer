@@ -120,6 +120,7 @@ const getTotalTokenContract = async () => {
   for (let i = 0; i < addressList.length; i++) {
     const item = addressList[i];
     const balance = await getBalance(item);
+    // console.log(balance, "balance");
     balancesData.push({
       contractAddress: item,
       balance,
@@ -141,6 +142,7 @@ const getTotalTokenContract = async () => {
       };
     }),
   ];
+  // console.log(walletStakeInfo, "walletStakeInfo");
   // .filter((item) => item.TokenStakeBalance > 0);
 };
 
@@ -150,7 +152,7 @@ const getBalance = async (address) => {
     let brc20Contract = new web3.eth.Contract(indexAbi, address);
     try {
       const balance = await brc20Contract.methods
-        .balanceOf(Address.getETHaddress)
+        .balanceOf(Address.ETHaddress)
         .call();
       return decimal(balance, address);
     } catch (error) {
@@ -160,7 +162,7 @@ const getBalance = async (address) => {
       }
       try {
         const res = await brc20Contract.methods
-          .balanceOf(Address.getETHaddress)
+          .balanceOf(Address.ETHaddress)
           .call();
         return decimal(res, address);
       } catch (error) {
@@ -198,10 +200,11 @@ const balancesList = async (address, ary) => {
 };
 
 const decimal = (balance, address) => {
+  // console.log(balance, address, "----");
   let decimal = parseInt(balance); // 不指定进制，默认按照十进制转换
   let num =
-    address === "0xE544e8a38aDD9B1ABF21922090445Ba93f74B9E5" ||
-    address === "0x681202351a488040Fa4FdCc24188AfB582c9DD62"
+    address === "0x9827431e8b77e87c9894bd50b055d6be56be0030" ||
+    address === "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2"
       ? 6
       : 18;
   return decimal / 10 ** num;

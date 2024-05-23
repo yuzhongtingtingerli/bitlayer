@@ -18,7 +18,7 @@
         <div class="check title2">
           {{
             links === 1
-              ? "Check on Bsquared:"
+              ? "Check on Bitlayer:"
               : "we will send your token to u soon."
           }}
         </div>
@@ -45,7 +45,7 @@ const open = (text, type) => {
 const goTixd = () => {
   let url;
   if (window.location.origin.indexOf("bitparty.tech") !== -1) {
-    url = `https://explorer.bsquared.network/tx/${txid.value}`;
+    url = `https://www.btrscan.com/tx/${txid.value}`;
   } else {
     url = `https://amoy.polygonscan.com/tx/${txid.value}`;
   }

@@ -45,7 +45,7 @@
           TVL：{{ getMoney(props.seasonData?.TotalStakeToken) }} BTC
         </div>
         <div class="t">
-          Created by：{{ props.seasonData?.Staker }} Bsquared assets holders
+          Created by：{{ props.seasonData?.Staker }} bitlayer assets holders
         </div>
         <div class="t">
           Special thanks to ：{{ getAddress(Address.getETHaddress) }}

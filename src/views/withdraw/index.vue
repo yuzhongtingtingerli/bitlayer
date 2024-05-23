@@ -282,7 +282,7 @@ const getTxHash = (txHash) => {
 const goTxHash = (txHash) => {
   let url;
   if (window.location.origin.indexOf("bitparty.tech") !== -1) {
-    url = `https://explorer.bsquared.network/tx/${txHash}`;
+    url = `https://www.btrscan.com/tx/${txHash}`;
   } else {
     url = `https://amoy.polygonscan.com/tx/${txHash}`;
   }

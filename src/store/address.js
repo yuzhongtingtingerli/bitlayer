@@ -140,7 +140,7 @@ export const useAddressStore = defineStore("address", {
                       decimals: 18,
                     },
                     rpcUrls: ["https://rpc.bitlayer.org"],
-                    blockExplorerUrls: ["https://explorer.bsquared.network/"],
+                    blockExplorerUrls: ["https://www.btrscan.com/"],
                   },
                 ],
               });
@@ -214,7 +214,7 @@ export const useAddressStore = defineStore("address", {
                       decimals: 18,
                     },
                     rpcUrls: ["https://rpc.bitlayer.org"],
-                    blockExplorerUrls: ["https://explorer.bsquared.network/"],
+                    blockExplorerUrls: ["https://www.btrscan.com"],
                   },
                 ],
               });

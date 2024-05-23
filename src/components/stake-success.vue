@@ -39,7 +39,7 @@ const open = (text, g) => {
   }, 5000);
 };
 const goTixd = () => {
-  const url = `https://explorer.bsquared.network/tx/${txid.value}`;
+  const url = `https://www.btrscan.com/tx/${txid.value}`;
   window.open(url, "_blank");
 };
 defineExpose({ open, close });

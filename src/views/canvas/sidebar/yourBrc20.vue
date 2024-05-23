@@ -180,8 +180,8 @@ const balancesList = async (address, ary) => {
 const decimal = (hex, address = "") => {
   let decimal = parseInt(hex); // 不指定进制，默认按照十进制转换
   let num =
-    address === "0xE544e8a38aDD9B1ABF21922090445Ba93f74B9E5" ||
-    address === "0x681202351a488040Fa4FdCc24188AfB582c9DD62"
+    address === "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2" ||
+    address === "0x9827431e8b77e87c9894bd50b055d6be56be0030"
       ? 6
       : 18;
   return decimal / 10 ** num;

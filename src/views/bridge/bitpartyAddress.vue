@@ -15,7 +15,7 @@ const balance = ref(0);
 const spinning = ref(false);
 const ETHaddress = ref("");
 const gasPrice = ref("");
-const tipInfo = ref("make sure you have enough bsquared network gas.");
+const tipInfo = ref("make sure you have enough bitlayer network gas.");
 const open = async (symbol, address) => {
   record.value = symbol;
   balance.value = 0;
@@ -74,8 +74,8 @@ const maxNum = async () => {
 const decimal = (balance, address) => {
   let decimal = parseInt(balance); // 不指定进制，默认按照十进制转换
   let num =
-    address === "0xE544e8a38aDD9B1ABF21922090445Ba93f74B9E5" ||
-    address === "0x681202351a488040Fa4FdCc24188AfB582c9DD62"
+    address === "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2" ||
+    address === "0x9827431e8b77e87c9894bd50b055d6be56be0030"
       ? 6
       : 18;
   const money = decimal / 10 ** num;
@@ -120,7 +120,7 @@ const Confirm = async () => {
       return (tipInfo.value =
         "Please confirm the staking amount should be less than the maximum value of the account");
     } else {
-      tipInfo.value = "make sure you have enough bsquared network gas.";
+      tipInfo.value = "make sure you have enough bitlayer network gas.";
     }
   }
   spinning.value = true;
@@ -147,7 +147,7 @@ const setendtime60 = async () => {
   const res = await contract.methods
     .setEndTime(unlockTime)
     .send({ from: ETHaddress.value });
-  console.log(res, "res");
+  // console.log(res, "res");
 };
 
 const setendtime40000 = async () => {
@@ -170,7 +170,7 @@ const setendtime40000 = async () => {
   const res = await contract.methods
     .setEndTime(unlockTime)
     .send({ from: ETHaddress.value });
-  console.log(res, "res");
+  // console.log(res, "res");
 };
 
 const withdarw20 = async () => {
@@ -190,7 +190,7 @@ const withdarw20 = async () => {
   const res = await contract.methods
     .withdrawERC20(record.value.address)
     .send({ from: ETHaddress.value });
-  console.log(res, "res");
+  // console.log(res, "res");
 };
 
 const withdrawnative = async () => {
@@ -280,7 +280,7 @@ const withdrawERC20All = async () => {
 const goStake = async () => {
   let stakeAddress;
   if (window.location.origin.indexOf("bitparty.tech") !== -1) {
-    stakeAddress = "0xD23A65e1666F7179A6fedaF58F5da3421ce59c74";
+    stakeAddress = "0xf3019037f3463e118d2ba69dd2b4b36e3e609118";
   } else {
     stakeAddress = "0x0a0295F0f9CB507025222D24c51AD595239B05C4";
   }
@@ -299,8 +299,8 @@ const goStake = async () => {
       web3.setProvider(okxwallet);
     }
     let num =
-      record.value.address === "0xE544e8a38aDD9B1ABF21922090445Ba93f74B9E5" ||
-      record.value.address === "0x681202351a488040Fa4FdCc24188AfB582c9DD62"
+      record.value.address === "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2" ||
+      record.value.address === "0x9827431e8b77e87c9894bd50b055d6be56be0030"
         ? 6
         : 18;
     let num1 = new Big(balance.value);

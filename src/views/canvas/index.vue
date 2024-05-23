@@ -14,6 +14,7 @@
     />
     <FixedDisplay :seasonData="seasonData" v-if="scale > 0.05 && seasonData" />
     <RedBook ref="redBookRef" />
+    <Helmet ref="helmetRef" />
   </div>
 </template>
 
@@ -22,8 +23,8 @@ import { onMounted, ref, watch } from "vue";
 import { arr } from "../../utils/data";
 import cut1920 from "../../assets/cut/1920.mp4";
 import blackfloor from "../../assets/blackfloor.png";
-import book from "../../assets/available-books.png";
-import helmet from "../../assets/helmet.png";
+import book from "../../assets/bg_book.png";
+import helmet from "../../assets/bg_helmet.png";
 import floor from "../../assets/new_floor.png";
 import dialogBox from "../../assets/dialog_box.png";
 import { computeSize, getLocation, loadImage, drawRect } from "./canvas";
@@ -40,6 +41,7 @@ import Loading from "./loading.vue";
 import MinificationMap from "./minificationMap/index.vue";
 import FixedDisplay from "./fixedDisplay.vue";
 import RedBook from "./redBook.vue";
+import Helmet from "./helmet.vue";
 import { useAddressStore } from "@/store/address";
 import { checkRuningStatus } from "@/services/api.js";
 
@@ -76,8 +78,8 @@ const getGroupDetailInfo = async (Address = undefined) => {
   timer && cancelAnimationFrame(timer);
   res.result.GroupInfo.length && drawInit(res.result.GroupInfo);
   await onStart(false);
-  isShowError(
-    "Welcome to Bit party !  Join the Bsquared assets Group you hold and win BTPX. Good luck !",
+  await isShowError(
+    "Welcome to Bit party !  Join the Bitlayer assets Group you hold and win BTPX. Good luck !",
     5000
   );
 
@@ -250,13 +252,13 @@ function drawGroupInfo(x, y, w, h, group, catH) {
     // 绘制书本
     if (hasRedbook) {
       const _scale = Math.min(scale.value, 1);
-      const helmetImgw = (helmetImg.width / 2) * _scale;
-      const bookImgw = (bookImg.width / 5) * _scale;
-      const bookImgh = (bookImg.height / 5) * _scale;
+      const helmetImgw = (helmetImg.width / 1) * _scale;
+      const bookImgw = (bookImg.width / 1) * _scale;
+      const bookImgh = (bookImg.height / 1) * _scale;
       const bookImgX = hasHelmet
-        ? imgX + imgw / 2 - (bookImgw + helmetImgw) / 2
+        ? imgX + imgw / 2 - (bookImgw + helmetImgw) / 1.2
         : imgX + imgw / 2 - bookImgw / 2;
-      const bookImgY = imgY - bookImgh * 1.5;
+      const bookImgY = imgY - bookImgh * 1.2;
       ctx.drawImage(bookImg, bookImgX, bookImgY, bookImgw, bookImgh);
       group.book = {
         bookImgX,
@@ -268,20 +270,20 @@ function drawGroupInfo(x, y, w, h, group, catH) {
       ctx.fillStyle = "#ffffff"; // 设置文字颜色
       const t3 = `x${nftInfo.redbook.NftNumber}`;
       const text3Width = ctx.measureText(t3).width;
-      const text3X = bookImgX + text3Width / 2;
-      const text3Y = bookImgY + bookImgh + 28 * _scale;
+      const text3X = bookImgX + text3Width;
+      const text3Y = bookImgY + bookImgh + 1 * _scale;
       ctx.fillText(t3, text3X, text3Y);
     }
     if (hasHelmet) {
       const _scale = Math.min(scale.value, 1);
 
-      const bookImgw = (bookImg.width / 5) * _scale;
-      const helmetImgw = (helmetImg.width / 2) * _scale;
-      const helmetImgh = (helmetImg.height / 2) * _scale;
+      const bookImgw = (bookImg.width / 1) * _scale;
+      const helmetImgw = (helmetImg.width / 1) * _scale;
+      const helmetImgh = (helmetImg.height / 1) * _scale;
       const helmetImgX = hasRedbook
         ? imgX + imgw / 2 - (bookImgw + helmetImgw) / 2 + bookImgw * 1.2
         : imgX + imgw / 2 - helmetImgw / 2;
-      const helmetImgY = imgY - helmetImgh * 2;
+      const helmetImgY = imgY - helmetImgh * 1.2;
       ctx.drawImage(helmetImg, helmetImgX, helmetImgY, helmetImgw, helmetImgh);
       group.helmet = {
         helmetImgX,
@@ -293,13 +295,14 @@ function drawGroupInfo(x, y, w, h, group, catH) {
       ctx.fillStyle = "#ffffff"; // 设置文字颜色
       const t3 = `x${nftInfo.helmet.NftNumber}`;
       const text3Width = ctx.measureText(t3).width;
-      const text3X = helmetImgX + text3Width / 2;
-      const text3Y = helmetImgY + helmetImgh + 28 * _scale;
+      const text3X = helmetImgX + text3Width;
+      const text3Y = helmetImgY + helmetImgh + 1 * _scale;
       ctx.fillText(t3, text3X, text3Y);
     }
   }
 }
 const redBookRef = ref(null);
+const helmetRef = ref(null);
 onMounted(async () => {
   checkRuning();
   ctx = canvasRef.value.getContext("2d");
@@ -325,7 +328,7 @@ onMounted(async () => {
   });
   canvasRef.value.addEventListener("click", (e) => {
     const { offsetX, offsetY } = e;
-    const found = arrs.find((item) => {
+    const foundBook = arrs.find((item) => {
       return (
         offsetX >= item.book?.bookImgX &&
         offsetX <= item.book?.bookImgX + item.book?.bookImgw &&
@@ -333,8 +336,19 @@ onMounted(async () => {
         offsetY <= item.book?.bookImgY + item.book?.bookImgh
       );
     });
-    if (found) {
+    if (foundBook) {
       redBookRef.value.open();
+    }
+    const foundHelmet = arrs.find((item) => {
+      return (
+        offsetX >= item.helmet?.helmetImgX &&
+        offsetX <= item.helmet?.helmetImgX + item.helmet?.helmetImgw &&
+        offsetY >= item.helmet?.helmetImgY &&
+        offsetY <= item.helmet?.helmetImgY + item.helmet?.helmetImgh
+      );
+    });
+    if (foundHelmet) {
+      helmetRef.value.open();
     }
     // console.log(333, found);
   });

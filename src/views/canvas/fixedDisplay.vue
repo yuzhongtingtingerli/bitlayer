@@ -2,7 +2,7 @@
   <div class="fixedDisplay" v-if="props.seasonData">
     <div>TVL：{{ getMoney(props.seasonData?.TotalStakeToken) }} BTC</div>
     <div>
-      Created by：{{ props.seasonData?.Staker }} Bsquared assets holders
+      Created by：{{ props.seasonData?.Staker }} bitlayer assets holders
     </div>
     <div>
       Will release：{{ getMoney(props.seasonData?.WillRelease) }}
