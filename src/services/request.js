@@ -12,7 +12,7 @@ function getBaseUrl() {
 }
 // http://68.178.206.124:3434
 // https://www.bitparty.tech:4000
-console.log("https://bitlayer.bitparty.tech:4114-0525-02");
+console.log("https://bitlayer.bitparty.tech:4114-0525-03");
 const BASEURL =
   process.env.NODE_ENV === "development"
     ? getBaseUrl()
