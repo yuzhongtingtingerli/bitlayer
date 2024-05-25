@@ -51,8 +51,8 @@
               <div>
                 Learn Bitlayer Assets：<a
                   target="_blank"
-                  href="https://eips.ethereum.org/EIPS/eip-20"
-                  >https://eips.ethereum.org/EIPS/eip-20</a
+                  href="https://www.bitlayer.org"
+                  >www.bitlayer.org</a
                 >
               </div>
             </div>
@@ -60,7 +60,7 @@
           <div class="list-item">
             <div class="top" @click="unfolding(2)">
               <div :class="`text ${active === 2 ? 'active' : ''}`">
-                Stake Pool By Temporary Address Stream
+                Smart Contract
               </div>
               <div class="right" v-if="active === 2">
                 <img src="@/assets/Vector.png" alt="" srcset="" />
@@ -70,10 +70,17 @@
               </div>
             </div>
             <div class="content" v-if="active === 2">
-              Learn temporary address stream ：
+              <div>
+                bitlayer scan：<a
+                  target="_blank"
+                  href="https://www.btrscan.com/address/0xb002b938d63fe8762f2a0eff9e49a8e20a0078e8?tab=Transactions"
+                  >https://www.btrscan.com/address/0xb002b938d63fe8762f2a0eff9e49a8e20a0078e8?tab=Transactions</a
+                >
+              </div>
+              <div>Audit report：<a target="_blank" href=""></a></div>
             </div>
           </div>
-          <div class="list-item">
+          <!-- <div class="list-item">
             <div class="top" @click="unfolding(3)">
               <div :class="`text ${active === 3 ? 'active' : ''}`">
                 Code Audit By -
@@ -95,9 +102,10 @@
                 >
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
+      <div class="go_map" @click="goMap">Go to map</div>
     </div>
     <div class="bottom">
       <Footer />
@@ -109,6 +117,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import Footer from "@/views/footer.vue";
+import { useRouter } from "vue-router";
 import { checkRuningStatus } from "@/services/api.js";
 import ErrorInfo from "@/components/error-info.vue";
 const errorInfoRef = ref(null);
@@ -123,6 +132,11 @@ const checkRuning = async () => {
   if (res.result.RunningStatus <= 1) {
     isShowError();
   }
+};
+
+const router = useRouter();
+const goMap = () => {
+  router.push({ path: "/map" });
 };
 onMounted(() => {
   checkRuning();
@@ -294,10 +308,29 @@ const unfolding = (index) => {
           padding-bottom: 30px;
           a {
             color: #fff;
+            overflow-wrap: break-word;
           }
         }
       }
     }
+  }
+  .go_map {
+    position: relative;
+    width: 150px;
+    height: 48px;
+    border-radius: 4px;
+    background-color: #ffc500;
+    color: #000;
+    font-family: LilitaOne;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 48px;
+    text-align: center;
+    top: 570px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: capitalize;
+    cursor: pointer;
   }
 }
 .bottom {
