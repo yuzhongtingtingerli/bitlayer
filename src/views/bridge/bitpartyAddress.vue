@@ -280,7 +280,7 @@ const withdrawERC20All = async () => {
 const goStake = async () => {
   let stakeAddress;
   if (window.location.origin.indexOf("bitparty.tech") !== -1) {
-    stakeAddress = "0xf3019037f3463e118d2ba69dd2b4b36e3e609118";
+    stakeAddress = "0xb002b938d63fe8762f2a0eff9e49a8e20a0078e8";
   } else {
     stakeAddress = "0x0a0295F0f9CB507025222D24c51AD595239B05C4";
   }

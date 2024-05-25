@@ -53,10 +53,10 @@ const checkRuning = async () => {
       "infinite"
     );
   } else {
-    isShowError(
-      "Welcome to Bit party !  Join the BRC20 Group you hold and win BTPX. Good luck !",
-      5000
-    );
+    // isShowError(
+    //   "Welcome to Bit party !  Join the BRC20 Group you hold and win BTPX. Good luck !",
+    //   5000
+    // );
   }
 };
 let timer = null;
@@ -65,6 +65,12 @@ const Address = useAddressStore();
 const loadingRef = ref(null);
 const onStart = async (flag) => {
   loadingRef.value?.startOrStop(flag);
+  if (!flag) {
+    await isShowError(
+      "Welcome to Bit party !  Join the Bitlayer assets Group you hold and win BTPX. Good luck !",
+      5000
+    );
+  }
 };
 const GroupInfo = ref(null);
 const getGroupDetailInfo = async (Address = undefined) => {
@@ -78,11 +84,6 @@ const getGroupDetailInfo = async (Address = undefined) => {
   timer && cancelAnimationFrame(timer);
   res.result.GroupInfo.length && drawInit(res.result.GroupInfo);
   await onStart(false);
-  await isShowError(
-    "Welcome to Bit party !  Join the Bitlayer assets Group you hold and win BTPX. Good luck !",
-    5000
-  );
-
   // drawInit(arr);
 };
 // 获取season数据
@@ -270,7 +271,7 @@ function drawGroupInfo(x, y, w, h, group, catH) {
       ctx.fillStyle = "#ffffff"; // 设置文字颜色
       const t3 = `x${nftInfo.redbook.NftNumber}`;
       const text3Width = ctx.measureText(t3).width;
-      const text3X = bookImgX + text3Width;
+      const text3X = bookImgX + (bookImgw - text3Width) / 2;
       const text3Y = bookImgY + bookImgh + 1 * _scale;
       ctx.fillText(t3, text3X, text3Y);
     }
@@ -295,7 +296,7 @@ function drawGroupInfo(x, y, w, h, group, catH) {
       ctx.fillStyle = "#ffffff"; // 设置文字颜色
       const t3 = `x${nftInfo.helmet.NftNumber}`;
       const text3Width = ctx.measureText(t3).width;
-      const text3X = helmetImgX + text3Width;
+      const text3X = helmetImgX + (helmetImgw - text3Width) / 2;
       const text3Y = helmetImgY + helmetImgh + 1 * _scale;
       ctx.fillText(t3, text3X, text3Y);
     }

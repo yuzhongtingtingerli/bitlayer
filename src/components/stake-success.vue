@@ -13,7 +13,7 @@
           {{ toUpperCase("You will got score every day until the game end") }}
         </div>
         <div class="check title3">
-          {{ toUpperCase("Check on B2scan:") }}
+          {{ toUpperCase("Check on Bitlayer Scan:") }}
         </div>
         <div class="herf" @click="goTixd">{{ txid }}</div>
       </div>

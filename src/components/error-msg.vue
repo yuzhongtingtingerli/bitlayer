@@ -13,7 +13,7 @@
         <div :class="`msg ${href ? ' h190' : ''}`">
           <div>{{ message }}</div>
           <div v-if="href" class="click">
-            <div>Check on B2scan:</div>
+            <div>Check on Bitlayer Scan:</div>
             <div class="href" @click="goHref(href)">{{ href }}</div>
           </div>
         </div>

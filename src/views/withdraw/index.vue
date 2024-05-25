@@ -2,7 +2,7 @@
   <div class="withdraw">
     <a-spin :spinning="spinning">
       <div class="title">
-        <span v-if="!Address.ETHaddress">S2 Withdraw now !</span>
+        <span v-if="!Address.ETHaddress">Season3 Withdraw now !</span>
         <span v-else-if="!assetList">Sorry for u !</span>
         <span v-else-if="assetList">Salute u !</span>
       </div>
@@ -45,7 +45,7 @@
             Please log in to your staking wallet firtst
           </div>
           <div class="unconnectedWallet" v-else-if="!assetList">
-            This wallet address does not participate in s2 activities
+            This wallet address does not participate in Season3 activities
           </div>
           <div v-else-if="assetInfo" class="connectedWallet">
             <div class="contract">
