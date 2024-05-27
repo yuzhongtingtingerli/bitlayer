@@ -117,11 +117,18 @@ const checkTokenID = async () => {
   }
   try {
     const res = await contract.methods.ownerOf(tokenID.value).call();
-    console.log(res, "res");
-    // if (res === Address.ETHaddress) {
-    //   status.value = "pass";
-    // }
-    status.value = "pass";
+    if (res.toLowerCase() === Address.ETHaddress.toLowerCase()) {
+      status.value = "pass";
+    } else {
+      status.value = "fail";
+    }
+    console.log(res, Address.ETHaddress, "res, Address.ETHaddress");
+    console.log(
+      res.toLowerCase(),
+      Address.ETHaddress.toLowerCase(),
+      "toLowerCase"
+    );
+    // status.value = "pass";
   } catch (error) {
     console.log(error, "eee");
     status.value = "fail";
