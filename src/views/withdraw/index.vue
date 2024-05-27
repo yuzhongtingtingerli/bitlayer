@@ -154,18 +154,28 @@ const checkRuning = async () => {
     isShowError();
   }
 };
-
+// ETH:0xef63d4e178b3180beec9b0e143e0f37f4c93f4c2
+// USDT:0xfe9f969faf8ad72a83b761138bf25de87eff9dd2
+// USDC:0x9827431e8b77e87c9894bd50b055d6be56be0030
+// WBTC:0xff204e2681a6fa0e2c3fade68a1b28fb90e4fc5f
+// bitUSD:0x07373d112edc4570b46996ad1187bc4ac9fb5ed0
+// CBD:0x2729868df87d062020e4a4867ff507fb52ee697c
+// BONE:0x68879ca2af24941fc3b6eb89fdb26a98aa001fc1
+// CBD:0x2729868df87d062020e4a4867ff507fb52ee697c,最小440000，精度18位
+// BONE:0x68879ca2af24941fc3b6eb89fdb26a98aa001fc1,最小5500，精度18位
 let stakeAddress;
 let withdrawList;
 let btcType;
 if (window.location.origin.indexOf("bitparty.tech") !== -1) {
   stakeAddress = "0xb002b938d63fe8762f2a0eff9e49a8e20a0078e8";
   withdrawList = [
-    "0xfF204e2681A6fA0e2C3FaDe68a1B28fb90E4Fc5F",
+    "0xff204e2681a6fa0e2c3fade68a1b28fb90e4fc5f",
     "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2",
     "0x9827431e8b77e87c9894bd50b055d6be56be0030",
     "0xef63d4e178b3180beec9b0e143e0f37f4c93f4c2",
     "0x07373d112edc4570b46996ad1187bc4ac9fb5ed0",
+    "0x2729868df87d062020e4a4867ff507fb52ee697c",
+    "0x68879ca2af24941fc3b6eb89fdb26a98aa001fc1",
   ];
   btcType = "BTC";
 } else {

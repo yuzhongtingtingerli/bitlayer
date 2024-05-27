@@ -77,7 +77,13 @@
                   >https://www.btrscan.com/address/0xb002b938d63fe8762f2a0eff9e49a8e20a0078e8?tab=Transactions</a
                 >
               </div>
-              <div>Audit report：<a target="_blank" href=""></a></div>
+              <div>
+                Audit report：<a
+                  target="_blank"
+                  href="https://scalebit.xyz/reports/BitParty-Final-Audit-Report.pdf"
+                  >https://scalebit.xyz/reports/BitParty-Final-Audit-Report.pdf</a
+                >
+              </div>
             </div>
           </div>
           <!-- <div class="list-item">

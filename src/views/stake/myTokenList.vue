@@ -172,6 +172,7 @@ const getBalance = async (address) => {
     }
   } catch (error) {
     console.log(error, "e");
+    return 0;
   }
 };
 const getBalanceData = (balancesData, address) => {
