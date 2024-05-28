@@ -459,7 +459,7 @@ export const getNftScoreData = async (params) => {
 
 export const getTokenContractData = async (params) => {
   try {
-    const { code, result, status } = await getTokenContract(params);
+    const { code, result, status } = await getTotalTokenContract(params);
     const statusCode = parseInt(code);
     if (statusCode === 1) {
       return { status, statusCode, result };

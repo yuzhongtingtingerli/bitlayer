@@ -75,7 +75,9 @@ const decimal = (balance, address) => {
   let decimal = parseInt(balance); // 不指定进制，默认按照十进制转换
   let num =
     address === "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2" ||
-    address === "0x9827431e8b77e87c9894bd50b055d6be56be0030"
+    address === "0x9827431e8b77e87c9894bd50b055d6be56be0030" ||
+    address === "0xf6fa83e30c7d3978f86141016ee9471d77f48ae0" ||
+    address === "0xbb0cb5c5e49d5c3903932d07831fb8c1bb1651d2"
       ? 6
       : 18;
   const money = decimal / 10 ** num;

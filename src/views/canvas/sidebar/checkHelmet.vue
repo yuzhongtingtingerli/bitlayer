@@ -62,8 +62,7 @@
         </div>
         <div class="failText">
           <span v-if="status === 'fail'"
-            >It’s used or input the wrong inscription id. Plz check it
-            again.</span
+            >It’s used or input the wrong token id. Plz check it again.</span
           >
         </div>
         <div
