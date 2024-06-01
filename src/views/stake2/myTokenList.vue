@@ -62,6 +62,51 @@ import ErrorMsg from "@/components/error-msg.vue";
 import { useAddressStore } from "@/store/address";
 
 const Address = useAddressStore();
+
+import { ethers } from "ethers";
+const getSigner = async () => {
+  let signer = null;
+  let provider;
+  if (window.ethereum == null) {
+    provider = ethers.getDefaultProvider();
+  } else {
+    provider = new ethers.JsonRpcProvider("https://rpc.bitlayer.org");
+    // Get write access as an account by getting the signer
+    signer = await provider.getSigner();
+  }
+  return signer;
+};
+
+const getBalanceEthers = async (address) => {
+  try {
+    const signer = await getSigner();
+    let brc20Contract = new ethers.Contract(address, indexAbi, signer);
+    try {
+      const balance = await brc20Contract.balanceOf(Address.ETHaddress);
+      return decimal(balance, address);
+    } catch (error) {
+      console.log(error, "eee");
+      return 0;
+      // const ETHWalletType = window.localStorage.getItem("ETHWalletType");
+      // if (ETHWalletType === "ip") {
+      //   web3.setProvider(okxwallet);
+      // }
+      // try {
+      //   const res = await brc20Contract.methods
+      //     .balanceOf(Address.ETHaddress)
+      //     .call();
+      //   return decimal(res, address);
+      // } catch (error) {
+      //   console.log(error, "balance fail----");
+      //   return 0;
+      // }
+    }
+  } catch (error) {
+    console.log(error, "e");
+    return 0;
+  }
+};
+
 const stakeSuccessRef = ref(null);
 const bitpartyAddressRef = ref(null);
 const errorMsgRef = ref(null);
@@ -119,7 +164,7 @@ const getTotalTokenContract = async () => {
   const balancesData = [];
   for (let i = 0; i < addressList.length; i++) {
     const item = addressList[i];
-    const balance = await getBalance(item);
+    const balance = await getBalanceEthers(item);
     // console.log(balance, "balance");
     balancesData.push({
       contractAddress: item,
@@ -148,7 +193,6 @@ const getTotalTokenContract = async () => {
 
 const getBalance = async (address) => {
   try {
-    // const provider = window["ethereum"] || window.web3.currentProvider;
     let web3 = new Web3(window.web3.currentProvider);
     let brc20Contract = new web3.eth.Contract(indexAbi, address);
     try {

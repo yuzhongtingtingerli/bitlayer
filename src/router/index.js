@@ -5,6 +5,7 @@ import Canvas from "../views/canvas/index.vue";
 import Rank from "../views/rank/index.vue";
 // import Bridge from "../views/bridge/index.vue";
 import Stake from "../views/stake/index.vue";
+import Stake2 from "../views/stake2/index.vue";
 import Empty from "../views/empty.vue";
 import Withdraw from "../views/withdraw/index.vue";
 
@@ -38,6 +39,11 @@ const routes = [
     path: "/stake",
     name: "Stake",
     component: Stake,
+  },
+  {
+    path: "/stake2",
+    name: "Stake2",
+    component: Stake2,
   },
   {
     path: "/withdraw",
