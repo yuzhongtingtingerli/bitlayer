@@ -10,7 +10,7 @@
     <div class="right" v-if="nftScoreData?.TotalListNumber > 0">
       <div class="books">
         <div
-          class="red"
+          class="yellow"
           v-if="nftScoreData.redbook && nftScoreData.redbook.NftScore > 0"
         >
           <div class="top">
@@ -20,13 +20,8 @@
               alt=""
               srcset=""
             />
-            <div class="hover">
-              <div class="num">+{{ nftScoreData.redbook.NftScore }}</div>
-              <!-- <div class="description">Earn +50% more Diamonds</div> -->
-            </div>
-            <!-- <div class="num">{{ nftScoreData.Initiative.NftNumber }}</div> -->
           </div>
-          <!-- <div class="bottom">+{{ nftScoreData.Initiative.NftScore }}</div> -->
+          <span class="num">+{{ nftScoreData.redbook.NftScore }}</span>
         </div>
         <div
           class="yellow"
@@ -34,13 +29,8 @@
         >
           <div class="top">
             <img src="@/assets/helmet.png" width="24px" alt="" srcset="" />
-            <div class="hover">
-              <div class="num">+{{ nftScoreData.hemlet.NftScore }}</div>
-              <!-- <div class="description">Earn +50% more Diamonds</div> -->
-            </div>
-            <!-- <div class="num">{{ nftScoreData.Passive.NftNumber }}</div> -->
           </div>
-          <!-- <div class="bottom">+{{ nftScoreData.Passive.NftScore }}</div> -->
+          <span class="num">+{{ nftScoreData.hemlet.NftScore }}</span>
         </div>
       </div>
     </div>
@@ -75,13 +65,16 @@ const props = defineProps({
     display: flex;
     justify-content: space-between;
     .yellow {
-      margin-left: 16px;
+      margin-right: 16px;
+      display: flex;
+      align-items: center;
+      color: #ffc500;
+      font-weight: 700;
     }
     .top {
       position: relative;
-      width: 30px;
-      height: 30px;
-      padding: 3px 3px 2px 0px;
+      height: 34px;
+      width: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -95,36 +88,7 @@ const props = defineProps({
       border-image-slice: 1;
       border-radius: 2px;
       cursor: pointer;
-      &:hover .hover {
-        display: block;
-      }
-      .hover {
-        display: none;
-        position: absolute;
-        top: 34px;
-        right: 0px;
-        width: 160px;
-        height: 58px;
-        background-color: #232323;
-        border-radius: 2px;
-        padding-left: 11px;
-        padding-top: 10px;
-        .num {
-          font-family: Poppins;
-          font-size: 13px;
-          font-weight: 700;
-          line-height: 19.5px;
-          text-align: left;
-          color: #ffc500;
-          line-height: 20px;
-        }
-        .description {
-          font-family: Inter;
-          font-size: 10px;
-          font-weight: 400;
-          line-height: 10px;
-        }
-      }
+      margin-right: 5px;
     }
   }
   .PersonalTotalScore {

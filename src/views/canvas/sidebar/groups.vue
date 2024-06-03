@@ -83,7 +83,7 @@ import { ref, watch } from "vue";
 import Title from "@cps/title";
 import { getMoney } from "@/utils/Tools.js";
 import { SearchOutlined } from "@ant-design/icons-vue";
-import { request } from "@/services/request.js";
+import { getGroupSearchData } from "@/services/index.js";
 import { useAddressStore } from "@/store/address";
 const Address = useAddressStore();
 const emit = defineEmits(["load"]);
@@ -130,10 +130,7 @@ const getGroupSearch = async (groupName) => {
   // loading.value = true;
   try {
     // 使用封装的 request 方法发起请求
-    const data = await request(
-      `/blockchain/getGroupSearch?TokenSymbol=${groupName}`,
-      "get"
-    );
+    const data = await getGroupSearchData(groupName);
     groupList.value = data.result;
     console.log(data.result, "getGroupSearch");
   } catch (err) {
