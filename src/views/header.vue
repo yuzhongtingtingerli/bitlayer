@@ -33,9 +33,9 @@
           >
           <a href="https://docs.bitparty.tech" target="_blank">Whitepaper</a>
           <!-- <router-link to="/empty">Safe And Privacy</router-link> -->
-          <!-- <router-link :class="getCurrentRoute('/withdraw')" to="/withdraw"
+          <router-link :class="getCurrentRoute('/withdraw')" to="/withdraw"
             >Withdraw</router-link
-          > -->
+          >
         </div>
       </div>
       <div class="right">

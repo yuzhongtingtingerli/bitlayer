@@ -48,7 +48,7 @@
             This wallet address does not participate in Season3 activities
           </div>
           <div v-else-if="assetInfo" class="connectedWallet">
-            <div class="contract">
+            <!-- <div class="contract">
               <div
                 v-if="assetInfo['Contract1']"
                 :class="`contract-item ${contract === 1 ? 'activeC' : ''}`"
@@ -63,7 +63,7 @@
               >
                 Contract 2
               </div>
-            </div>
+            </div> -->
             <div class="list" v-if="assetList">
               <div
                 class="list-item"
@@ -169,33 +169,36 @@ const checkRuning = async () => {
 // enzoUSDC:  最小转账数量:70  合约地址:0xbb0cb5c5e49d5c3903932d07831fb8c1bb1651d2  精度位数:6
 // enzoETH:  最小转账数量:0.02  合约地址:0xab7f136bbb18808f0c981d0307d3360ca92ad171  精度位数:18
 let stakeAddress;
-let withdrawList;
+// let withdrawList;
 let btcType;
+let provider;
 if (window.location.origin.indexOf("bitparty.tech") !== -1) {
   stakeAddress = "0xb002b938d63fe8762f2a0eff9e49a8e20a0078e8";
-  withdrawList = [
-    "0xff204e2681a6fa0e2c3fade68a1b28fb90e4fc5f",
-    "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2",
-    "0x9827431e8b77e87c9894bd50b055d6be56be0030",
-    "0xef63d4e178b3180beec9b0e143e0f37f4c93f4c2",
-    "0x07373d112edc4570b46996ad1187bc4ac9fb5ed0",
-    "0x2729868df87d062020e4a4867ff507fb52ee697c",
-    "0x68879ca2af24941fc3b6eb89fdb26a98aa001fc1",
-    "0xf6718b2701d4a6498ef77d7c152b2137ab28b8a3",
-    "0xe277aed3ff3eb9824edc52fe7703df0c5ed8b313",
-    "0xf6fa83e30c7d3978f86141016ee9471d77f48ae0",
-    "0xbb0cb5c5e49d5c3903932d07831fb8c1bb1651d2",
-    "0xab7f136bbb18808f0c981d0307d3360ca92ad171",
-  ];
+  // withdrawList = [
+  //   "0xff204e2681a6fa0e2c3fade68a1b28fb90e4fc5f",
+  //   "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2",
+  //   "0x9827431e8b77e87c9894bd50b055d6be56be0030",
+  //   "0xef63d4e178b3180beec9b0e143e0f37f4c93f4c2",
+  //   "0x07373d112edc4570b46996ad1187bc4ac9fb5ed0",
+  //   "0x2729868df87d062020e4a4867ff507fb52ee697c",
+  //   "0x68879ca2af24941fc3b6eb89fdb26a98aa001fc1",
+  //   "0xf6718b2701d4a6498ef77d7c152b2137ab28b8a3",
+  //   "0xe277aed3ff3eb9824edc52fe7703df0c5ed8b313",
+  //   "0xf6fa83e30c7d3978f86141016ee9471d77f48ae0",
+  //   "0xbb0cb5c5e49d5c3903932d07831fb8c1bb1651d2",
+  //   "0xab7f136bbb18808f0c981d0307d3360ca92ad171",
+  // ];
   btcType = "BTC";
+  provider = window["ethereum"] || window.web3.currentProvider;
 } else {
   stakeAddress = "0x0a0295F0f9CB507025222D24c51AD595239B05C4";
-  withdrawList = [
-    "0xE703b28382b2A0C55C11ebc7AE11933380BfDc5A",
-    "0xa9135F1096d5D92716114b302B29430fa0812534",
-    "0x6385be4f5D62Af9266664958F05A4F2F0f0a08B0",
-  ];
+  // withdrawList = [
+  //   "0xE703b28382b2A0C55C11ebc7AE11933380BfDc5A",
+  //   "0xa9135F1096d5D92716114b302B29430fa0812534",
+  //   "0x6385be4f5D62Af9266664958F05A4F2F0f0a08B0",
+  // ];
   btcType = "nati";
+  provider = window["ethereum"] || window.web3.currentProvider;
 }
 const spinning = ref(false);
 const contract = ref(1);
@@ -241,6 +244,7 @@ const chooseWallet = async (type) => {
 
 const assetInfo = ref(null);
 const assetList = ref(null);
+const withdraw = ref("");
 const getAssetInfo = async (address) => {
   spinning.value = true;
   let info = {};
@@ -249,6 +253,7 @@ const getAssetInfo = async (address) => {
   try {
     const res = await getAssetListData({
       EthAddress: address,
+      // EthAddress: "0x7A1Ad5A51EAa7404aAccE3Ec50Ad3cc8923Ff79d",
     });
 
     if (res.result.AssetsInfo.length > 0) {
@@ -261,6 +266,9 @@ const getAssetInfo = async (address) => {
           res.result.AssetsInfo[0].ContractName === "Contract1" ? 1 : 2;
         contract.value = contractNum;
         assetList.value = res.result.AssetsInfo[0];
+        withdraw.value = res.result.AssetsInfo[0].StakeInfo.map(
+          (item) => item.TokenContract
+        );
       } else {
         assetList.value = info["Contract1"];
       }
@@ -377,7 +385,7 @@ const doWithdraw = async ({
 
 const withdrawnative = async () => {
   spinning.value = true;
-  const provider = window["ethereum"] || window.web3.currentProvider;
+  // const provider = window["ethereum"] || window.web3.currentProvider;
   let web3 = new Web3(provider);
   let contract = new web3.eth.Contract(stakeAbi, stakeAddress);
   const ETHWalletType = window.localStorage.getItem("ETHWalletType");
@@ -399,7 +407,7 @@ const withdrawnative = async () => {
 
 const withdrawERC20All = async () => {
   spinning.value = true;
-  const provider = window["ethereum"] || window.web3.currentProvider;
+  // const provider = window["ethereum"] || window.web3.currentProvider;
   let web3 = new Web3(provider);
   let contract = new web3.eth.Contract(stakeAbi, stakeAddress);
   const ETHWalletType = window.localStorage.getItem("ETHWalletType");
@@ -407,9 +415,11 @@ const withdrawERC20All = async () => {
     web3.setProvider(okxwallet);
   }
   try {
+    console.log([...withdraw.value], "withdrawERC20All");
     const res = await contract.methods
-      .withdrawERC20All([...withdrawList])
+      .withdrawERC20All([...withdraw.value])
       .send({ from: Address.ETHaddress });
+    console.log(res, "withdrawERC20All-res");
     spinning.value = false;
     return res.transactionHash;
   } catch (error) {
