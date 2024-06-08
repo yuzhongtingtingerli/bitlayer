@@ -20,7 +20,7 @@
     "ant-design-vue": "4.x",
     "axios": "^1.6.2",
     "big.js": "^6.2.1",
-    "ethers": "5",
+    "ethers": "^6.13.0",
     "install": "^0.13.0",
     "pinia": "^2.1.7",
     "sass": "^1.70.0",

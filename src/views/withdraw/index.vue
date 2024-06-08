@@ -122,6 +122,7 @@
 
 <script setup>
 import Web3 from "web3";
+import { ethers } from "ethers";
 import stakeAbi from "@/abi/stake.json";
 import { ref, onMounted, watch } from "vue";
 import SuccessInfo from "@/components/success-info.vue";
@@ -191,13 +192,15 @@ if (window.location.origin.indexOf("bitparty.tech") !== -1) {
   btcType = "BTC";
   provider = window["ethereum"] || window.web3.currentProvider;
 } else {
-  stakeAddress = "0x0a0295F0f9CB507025222D24c51AD595239B05C4";
+  stakeAddress = "0xb002b938d63fe8762f2a0eff9e49a8e20a0078e8";
+  // stakeAddress = "0x0a0295F0f9CB507025222D24c51AD595239B05C4";
   // withdrawList = [
   //   "0xE703b28382b2A0C55C11ebc7AE11933380BfDc5A",
   //   "0xa9135F1096d5D92716114b302B29430fa0812534",
   //   "0x6385be4f5D62Af9266664958F05A4F2F0f0a08B0",
   // ];
-  btcType = "nati";
+  // btcType = "nati";
+  btcType = "BTC";
   provider = window["ethereum"] || window.web3.currentProvider;
 }
 const spinning = ref(false);
@@ -253,7 +256,7 @@ const getAssetInfo = async (address) => {
   try {
     const res = await getAssetListData({
       EthAddress: address,
-      // EthAddress: "0x7A1Ad5A51EAa7404aAccE3Ec50Ad3cc8923Ff79d",
+      // EthAddress: "0xfe70de65e28776f9f838ce724e0859298f2bf9d5",
     });
 
     if (res.result.AssetsInfo.length > 0) {
@@ -266,9 +269,9 @@ const getAssetInfo = async (address) => {
           res.result.AssetsInfo[0].ContractName === "Contract1" ? 1 : 2;
         contract.value = contractNum;
         assetList.value = res.result.AssetsInfo[0];
-        withdraw.value = res.result.AssetsInfo[0].StakeInfo.map(
-          (item) => item.TokenContract
-        );
+        withdraw.value = res.result.AssetsInfo[0].StakeInfo.filter(
+          (item) => item.StakeTokenSymbol !== btcType
+        ).map((item) => item.TokenContract);
       } else {
         assetList.value = info["Contract1"];
       }
@@ -338,6 +341,8 @@ const goWithdrawBTC = async () => {
 };
 
 const goWithdrawERC20 = async () => {
+  // withdrawERC20All();
+  // return;
   if (assetList.value.ERCEnable === "0") return;
   let txHash;
   if (contract.value === 2) {
@@ -410,6 +415,11 @@ const withdrawERC20All = async () => {
   // const provider = window["ethereum"] || window.web3.currentProvider;
   let web3 = new Web3(provider);
   let contract = new web3.eth.Contract(stakeAbi, stakeAddress);
+
+  // const maxFeePerGas = Web3.utils.toHex(web3.utils.toWei("20", "gwei")); // 设置最大费用每加密基
+  // const maxPriorityFeePerGas = Web3.utils.toHex(web3.utils.toWei("1", "gwei")); // 设置最高优先级费用每加密基
+  // console.log(maxFeePerGas, "maxFeePerGas");
+  // console.log(maxPriorityFeePerGas, "maxPriorityFeePerGas");
   const ETHWalletType = window.localStorage.getItem("ETHWalletType");
   if (ETHWalletType === "ip") {
     web3.setProvider(okxwallet);
@@ -418,7 +428,11 @@ const withdrawERC20All = async () => {
     console.log([...withdraw.value], "withdrawERC20All");
     const res = await contract.methods
       .withdrawERC20All([...withdraw.value])
-      .send({ from: Address.ETHaddress });
+      .send({
+        from: Address.ETHaddress,
+        // maxFeePerGas,
+        // maxPriorityFeePerGas,
+      });
     console.log(res, "withdrawERC20All-res");
     spinning.value = false;
     return res.transactionHash;

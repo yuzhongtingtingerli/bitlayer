@@ -32,13 +32,13 @@
           <!-- <div class="amount">{{ getMoney(item.TokenAmount) }}</div> -->
           <div class="stakeBalance">{{ getMoney(item.TokenStakeBalance) }}</div>
           <div class="availableStatus">
-            <div
+            <!-- <div
               class="btn"
               v-if="item.TokenStakeBalance > 0"
               @click="handleStatus(item)"
             >
               Go Stake
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -148,8 +148,13 @@ const getTotalTokenContract = async () => {
 
 const getBalance = async (address) => {
   try {
-    let web3 = new Web3(window.web3.currentProvider);
+    let provider = window["ethereum"] || window.web3.currentProvider;
+    let web3 = new Web3(provider);
     let brc20Contract = new web3.eth.Contract(indexAbi, address);
+    // const ETHWalletType = window.localStorage.getItem("ETHWalletType");
+    // if (ETHWalletType === "ip") {
+    //   web3.setProvider(okxwallet);
+    // }
     try {
       const balance = await brc20Contract.methods
         .balanceOf(Address.ETHaddress)
